@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container text-white pt-5">
+  <div class="p-5 m-5">
+    <div class="col-md-6 mx-auto pt-4 bg-dark">
+      <h3 class="text-white text-center pb-2">Login to your account</h3>
+      <form action="" method="post" class="bg-dark">
+        {% csrf_token %} {% if errors %}
+        <div class="alert alert-danger" role="alert">{{errors}}</div>
+        {% endif %}
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Password"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Login"
+            class="btn btn-primary mt-1 mr-2 mb-3"
+          />
+          <a href="{% url 'signup' %}">Signup</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

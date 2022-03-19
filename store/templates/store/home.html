@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+
+<div class="container mt-4">
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <div class="list-group" id="myList">
+                {% for category in categories %}
+                <a href="/?category={{category.id}}" class="list-group-item text-white" style="background: #343a40">
+                    <i class="fa fa-shopping-cart" style="margin-right: 15px; font-size: 20px;"></i>{{category.name}}</a>
+                {% endfor %}
+            </div>
+
+
+
+        </div>
+
+        <div id="products" class="col-lg-8">
+            <div class="row mx-auto">
+                {% for product in products %}
+                <div class="card mx-auto mb-4 bg-dark" id="{{product.id}}" style="width: 13.5rem;">
+                    <a href="#{{product.name}}" data-toggle="modal">
+                        <img src="{{product.image.url}}" class="card-img-top hover_img"></a>
+
+
+                    <div class="modal fade" id="{{product.name}}">
+                        <div class="modal-dialog" id="popup_modal">
+                            <div class="modal-content text-white bg-dark">
+                                <div class="modal-body">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="{{product.image.url}}" height="100%" width="100%">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <h1>{{product.name}}</h1>
+
+                                            <h5 class="mt-3 text-warning" style="font-size: 30px; letter-spacing: 2px;">
+                                                <i class="fas fa-dollar-sign" style="margin-right: 2px; font-size: 26px;">
+                                                </i>{{product.price}}.00</h5>
+
+                                            <p class="mt-3 text-justify">{{product.description}}</p>
+
+                                            <h5 class="mt-3 text-warning" style="font-size: 18px;">In Stock:</h5> 4
+                                            <h5 class="mt-3 text-warning" style="font-size: 18px;">Category:</h5>{{product.category}}
+                                            <h5 class="mt-3 text-warning" style="font-size: 18px;">Delivery:</i></h5> 3 Working Days
+                                            <h5 class="mt-3 text-warning" style="font-size: 18px;">Price:</i></h5> Non-Negotiable
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body text-white">
+                        <p class="card-title">{{product.name}}</p>
+                        <p class="card-text"><i class="fas fa-dollar-sign" style="margin-right: 2px; font-size: 15px;"></i>{{product.price}}</p>
+                        <!--                        {{product | is_in_cart:request.session.cart }}-->
+
+                    </div>
+                    <div class="card-footer p-0 no-gutters">
+                        {% if product|is_in_cart:request.session.cart %}
+                        <div class="row no-gutters">
+                            <form action="/#{{product.id}}" method="post" class="col-2">
+                                {% csrf_token %}
+                                <input hidden type="text" name="product" value="{{product.id}}">
+                                <input hidden type="text" name="remove" value="True">
+                                <input type="submit" value="-" class="btn btn-block btn-dark">
+                            </form>
+                            <div class="text-center text-white col mt-2">{{product|cart_count:request.session.cart}} in cart</div>
+                            <form action="/#{{product.id}}" method="post" class="col-2">
+                                {% csrf_token %}
+                                <input hidden type="text" name="product" value="{{product.id}}">
+                                <input type="submit" value="+" class="btn btn-block btn-dark">
+                            </form>
+
+                        </div>
+                        {% else %}
+                        <form method="post" action="/#{{product.id}}">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value="{{product.id}}">
+                            <input type="submit" class="btn btn-block btn-dark btn-sm" value="Add to Cart">
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

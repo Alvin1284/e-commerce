@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %} {% load cart %} {% load
+currency %}
+
+<div class="container text-white p-4">
+  <p class="display-4">Your Cart</p>
+  <hr style="background: white" />
+  <table class="table">
+    <thead>
+      <tr class="bg-primary">
+        <th>S.N</th>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for products in product %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>
+          <img
+            class="rounded-circle"
+            height="60px"
+            src="{{products.image.url}}"
+          />
+        </td>
+        <td>{{products.name}}</td>
+        <td>{{products.price|currency}}</td>
+        <td>{{products|cart_count:request.session.cart}}</td>
+        <td>{{products|total_price:request.session.cart|currency}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <th colspan="4"></th>
+      <th>Total</th>
+      <th>{{products|cart_price:request.session.cart|currency}}</th>
+    </tfoot>
+  </table>
+  <hr style="background: white" />
+  <div class="mb-5">
+    <a href="{% url 'checkout' %}" class="btn btn-primary float-right"
+      >Checkout</a
+    >
+  </div>
+  {% endblock %}
+</div>
