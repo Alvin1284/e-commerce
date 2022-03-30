@@ -1,10 +1,104 @@
 {% load static %}
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop and Drop</title>
-    
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <title>DropTech</title>
+    <style>
+
+
+        a{
+        font-size: 15px;
+        }
+
+        a:hover{
+            transition: transform .6s ease;
+
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            border: none;
+            color: white;
+            background: #FF0000 !important;
+                }
+        body{
+            background-color: #000000;
+
+        }
+        .hover_img{
+        transition: transform .5s ease;
+        }
+        .hover_img:hover{
+            transform: scale(1.05);
+        }
+        #popup_modal{
+        max-width: 1000px;
+        margin-top: 0px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">DropTech</a>
+            </li>
+        </ul>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Store</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav my-2 my-lg-0">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'cart' %}">Cart
+                    <span class="badge badge-primary">{{request.session.cart.keys|length}}</span></a>
+            </li>
+            {% if request.session.customer %}
+
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'order' %}">Order</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'signup' %}">Signup</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'login' %}">Login</span></a>
+            </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>
+
+
+
+{% block content %}
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

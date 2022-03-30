@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% load cart %} {% load
-currency %}
+{% extends 'base.html' %}{% block content %}{% load cart %}{% load currency %}
 
 <div class="container text-white p-4">
   <p class="display-4">Your Cart</p>
@@ -27,16 +26,16 @@ currency %}
           />
         </td>
         <td>{{products.name}}</td>
-        <td>{{products.price|currency}}</td>
+        <td>{{products.price}}</td>
         <td>{{products|cart_count:request.session.cart}}</td>
-        <td>{{products|total_price:request.session.cart|currency}}</td>
+        <td>{{products|total_price:request.session.cart}}</td>
       </tr>
       {% endfor %}
     </tbody>
     <tfoot>
       <th colspan="4"></th>
       <th>Total</th>
-      <th>{{products|cart_price:request.session.cart|currency}}</th>
+      <th>{{products|cart_price:request.session.cart}}</th>
     </tfoot>
   </table>
   <hr style="background: white" />

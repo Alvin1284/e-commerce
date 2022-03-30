@@ -1,88 +1,77 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="container mt-4">
-  <div class="p-3 m-3">
-    <div class="col-lg-5 rounded mx-auto border pt-4">
-      <div class="text-center col">
-        <hr />
-      </div>
-      <h3 class="alert alert-success rounded-pill" style="text-align: center">
-        Create an Account
-      </h3>
-      <form action="/signup/" method="POST">
-        {% csrf_token %} {% if error%}
+<div class="container text-white">
+  <div class="p-2 m-2">
+    <div class="col-md-6 mx-auto pt-4 bg-dark">
+      <h3 class="text-white text-center pb-2">Create an Account</h3>
+      <form action="" method="post" class="bg-dark">
+        {% csrf_token %} {% if error %}
         <div class="alert alert-danger" role="alert">{{error}}</div>
         {% endif %}
-
-        <!-- firstname -->
         <div class="form-group">
-          <label for="">First Name</label>
+          <label for="firstname">Firstname</label>
           <input
             type="text"
+            value="{{value.first_name}}"
             name="firstname"
-            id=""
-            value="{{values.first_name}}"
-            class="form-control form-control-sm"
-            placeholder=""
+            class="form-control"
+            placeholder="Firstname"
           />
         </div>
-
-        <!-- last name -->
         <div class="form-group">
-          <label for="">Last Name</label>
+          <label for="lastname">Lastname</label>
           <input
             type="text"
+            value="{{value.last_name}}"
             name="lastname"
-            id=""
-            value="{{values.last_name}}"
-            class="form-control form-control-sm"
+            class="form-control"
+            placeholder="Lastname"
           />
         </div>
-
-        <!-- phone -->
         <div class="form-group">
-          <label for="">Phone</label>
+          <label for="lastname">Phone Number</label>
           <input
             type="text"
+            value="{{value.phone}}"
             name="phone"
-            id=""
-            class="form-control form-control-sm"
-            value="{{values.phone}}"
-            placeholder="+254712345678"
+            class="form-control"
+            placeholder="Phone number"
           />
         </div>
-
-        <!-- email -->
         <div class="form-group">
-          <label for="">Email</label>
+          <label for="email">Email address</label>
           <input
-            required
             type="email"
+            value="{{value.email}}"
             name="email"
-            id=""
-            value="{{values.email}}"
-            class="form-control-sm form-control"
-            placeholder="johndoe@gmail.com"
+            class="form-control"
+            placeholder="Enter your email"
           />
         </div>
-
-        <!-- password -->
         <div class="form-group">
-          <label for="">Password</label>
+          <label for="password">Password</label>
           <input
             type="password"
             name="password"
-            id=""
-            class="form-control form-control-sm"
+            class="form-control"
+            placeholder="Password"
           />
         </div>
 
-        <button type="submit" class="btn btn-sm btn-success col-lg-12">
-          Create an account
-        </button>
+        {% if messages %} {% for message in messages %}
+        <h6 class="text-white">{{message}}</h6>
+        {% endfor %} {% endif %}
+
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Register"
+            class="btn btn-primary mt-1 mr-2 mb-3"
+          />
+          <a href="{% url 'login' %}">Login</a> Instead!
+        </div>
       </form>
     </div>
   </div>
 </div>
-
 {% endblock %}
